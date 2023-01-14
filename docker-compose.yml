@@ -1,0 +1,16 @@
+version: '3' # composeファイルのバージョン
+services:
+  go-app: # サービス名
+    container_name: go-app
+    build: # ビルドに使うDockerファイルのパス
+      context: .
+      dockerfile: ./build/Dockerfile
+    volumes: # マウントディレクトリ
+      - type: bind
+        source: ./app
+        target: /go/src/app
+    tty: true # コンテナの永続化
+    env_file: # .envファイル
+      - ./build/.go_env
+    environment:
+      - TZ=Asia/Tokyo
